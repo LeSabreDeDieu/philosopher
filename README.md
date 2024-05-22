@@ -1,1 +1,1 @@
-# template_projet_42
+# philosopher
