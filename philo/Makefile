@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/05/22 17:43:33 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/05/23 20:15:10 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,29 +15,43 @@
 #################
 
 # Directories
-SRC_SUBDIR	=	
+SRC_SUBDIR	=	utils init
 SRCDIR		=	./src
 INCDIR		=	./include
 LIBDIR		=	./lib
 OBJDIR		=	obj
 
 # Sources
-SRC			=	philosopher.c
+# INIT
+SRC_INIT_DIR	=	$(SRCDIR)/init
+SRC_INIT_FILES	=	init_philo.c
+SRC_INIT		=	$(addprefix $(SRC_INIT_DIR)/, $(SRC_INIT_FILES))	
+
+# UTILS
+SRC_UTILS_DIR	=	$(SRCDIR)/utils
+SRC_UTILS_FILES	=	ft_atoi.c \
+					ft_bzero.c \
+					ft_calloc.c	\
+					gettimeofday_ms.c \
+					secured_write.c
+SRC_UTILS		=	$(addprefix $(SRC_UTILS_DIR)/, $(SRC_UTILS_FILES))				
+
+SRC			=	$(SRC_INIT) \
+				$(SRC_UTILS) \
+				$(SRCDIR)/check_death.c \
+				$(SRCDIR)/philosopher.c \
+				$(SRCDIR)/status.c
 
 # Objects
 OBJ_SUBDIRS	=	$(SRC_SUBDIR:%=$(OBJDIR)/%)
 OBJ			=	$(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-
-# Libraries
-LIBFT_DIR 	=	$(LIBDIR)/libft
-LIBFT 		=	$(LIBFT_DIR)/libft.a
 
 # Output
 NAME		=	philo
 
 # Compiler
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -MMD 
+CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 #-fsanitize=thread
 OPTIONS		=	-I $(INCDIR) -I $(LIBFT_DIR)/includes
 LFLAGS		=	-L $(LIBFT_DIR) -lft
 
@@ -58,7 +72,7 @@ KL			=	\033[K
 
 all: check
 
-compile: pre_comp $(LIBFT) $(MLX) $(NAME)
+compile: pre_comp $(NAME)
 
 check:
 	@if [ -f "$(NAME)" ] && [ -z "$(shell find $(SRCDIR) -type f -name "*.c" -newer $(NAME) 2>/dev/null)" ] && [ -z "$(shell find $(SRCDIR) -type f -name "*.h" -newer $(NAME) 2>/dev/null)" ]; then \
@@ -86,17 +100,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 		$<
 	$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 
-$(LIBFT):
-	@make -sC $(LIBFT_DIR)
-
 clean:
 	@rm -rf $(OBJDIR)
-	@make -sC $(LIBFT_DIR) clean
 	@echo "$(YELLOW)********* Suppression des fichiers objets *********$(NC)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -sC $(LIBFT_DIR) fclean
 	@echo "$(RED)********* Suppression de l'executable $(NAME) *********$(NC)"
 
 re: fclean compile
