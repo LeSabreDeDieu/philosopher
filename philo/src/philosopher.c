@@ -6,23 +6,16 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:05:24 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/23 20:12:21 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/24 12:37:34 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	*routine(void *arg)
+void	usage(void)
 {
-	while (!(*((t_philo *)arg)->dead_flag))
-	{
-		if (!is_thinking(arg))
-			break ;
-		is_eating(arg);
-		if (!is_sleeping(arg))
-			break ;
-	}
-	return (NULL);
+	printf("Usage: ./philo number_of_philosophers time_to_die time_to_eat ");
+	printf("time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 }
 
 int	main(int argc, char **argv)
@@ -30,30 +23,12 @@ int	main(int argc, char **argv)
 	t_program	program;
 	int			i;
 
-	ft_bzero(&program, sizeof(t_program));
 	if (!(argc == 5 || argc == 6))
-	{
-		printf("Error: Invalid number of arguments\n");
-		return (1);
-	}
+		return (usage(), 1);
+	ft_bzero(&program, sizeof(t_program));
 	i = 0;
 	program.start_time = gettimeofday_ms();
 	init_t_program(&program, argv);
-	while (1)
-	{
-		check_death(&program);
-		pthread_mutex_lock(&program.dead_lock);
-		if (program.dead_flag)
-		{
-			break ;
-		}
-		pthread_mutex_unlock(&program.dead_lock);
-	}
-	while (i < program.num_of_philos)
-	{
-		pthread_join(program.philos[i].thread, NULL);
-		i++;
-	}
-	free(program.philos);
+	launch_program(&program);
 	return (0);
 }

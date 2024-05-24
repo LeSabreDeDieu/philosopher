@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/05/23 20:15:10 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/05/24 12:35:13 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,14 @@ SRC_UTILS_FILES	=	ft_atoi.c \
 					ft_bzero.c \
 					ft_calloc.c	\
 					gettimeofday_ms.c \
+					secured_get_dead_flag.c \
 					secured_write.c
 SRC_UTILS		=	$(addprefix $(SRC_UTILS_DIR)/, $(SRC_UTILS_FILES))				
 
 SRC			=	$(SRC_INIT) \
 				$(SRC_UTILS) \
 				$(SRCDIR)/check_death.c \
+				$(SRCDIR)/launchers.c \
 				$(SRCDIR)/philosopher.c \
 				$(SRCDIR)/status.c
 
@@ -51,7 +53,7 @@ NAME		=	philo
 
 # Compiler
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 #-fsanitize=thread
+CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 -fsanitize=thread
 OPTIONS		=	-I $(INCDIR) -I $(LIBFT_DIR)/includes
 LFLAGS		=	-L $(LIBFT_DIR) -lft
 
