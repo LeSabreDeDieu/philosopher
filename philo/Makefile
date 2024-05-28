@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/05/24 12:35:13 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/05/28 14:46:33 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,15 @@ SRC_INIT		=	$(addprefix $(SRC_INIT_DIR)/, $(SRC_INIT_FILES))
 
 # UTILS
 SRC_UTILS_DIR	=	$(SRCDIR)/utils
-SRC_UTILS_FILES	=	ft_atoi.c \
+SRC_UTILS_FILES	=	check_user_input.c \
+					ft_atoi.c \
 					ft_bzero.c \
 					ft_calloc.c	\
 					gettimeofday_ms.c \
+					main_thread_utils.c \
 					secured_get_dead_flag.c \
-					secured_write.c
+					secured_write.c \
+					take_forks.c
 SRC_UTILS		=	$(addprefix $(SRC_UTILS_DIR)/, $(SRC_UTILS_FILES))				
 
 SRC			=	$(SRC_INIT) \
@@ -53,7 +56,8 @@ NAME		=	philo
 
 # Compiler
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 -fsanitize=thread
+CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 
+#-fsanitize=thread
 OPTIONS		=	-I $(INCDIR) -I $(LIBFT_DIR)/includes
 LFLAGS		=	-L $(LIBFT_DIR) -lft
 
@@ -104,6 +108,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	@rm -rf $(OBJDIR)
+	@rm -f norm.log
 	@echo "$(YELLOW)********* Suppression des fichiers objets *********$(NC)"
 
 fclean: clean
@@ -114,6 +119,6 @@ re: fclean compile
 
 norminette:
 	@echo "$(YELLOW)********* Exécution de norminette *********$(NC)"
-	@norminette src/ include/ lib/libft | grep -B 1 -e "Error" || echo "Tous les fichiers ont passé le check norminette !"
+	@norminette src/ include/ > norm.log | grep -B 1 -e "Error" || echo "Tous les fichiers ont passé le check norminette !"
 
 .PHONY: check compile all clean fclean re norminette

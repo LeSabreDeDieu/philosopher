@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/24 16:50:16 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:48:38 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,25 @@ void				*ft_calloc(size_t count, size_t size);
 int					ft_atoi(const char *str);
 long				gettimeofday_ms(void);
 
+// check_user_input functions
+int					check_user_input(t_program *program, char **argv);
+
 // secured functions
 void				secured_write(t_philo *philo, char *str, char *color);
 int					get_dead_flag_secured(t_philo *philo);
 
 // init functions
-void				init_t_program(t_program *program, char **argv);
+int					init_t_program(t_program *program, char **argv);
 
 // stats functions
 int					is_eating(t_philo *philo);
 int					is_sleeping(t_philo *philo);
 int					is_thinking(t_philo *philo);
+int					take_forks(t_philo *philo);
 
 // check_death functions
 int					check_death(t_program *program);
+void				check_is_all_dead(t_program *program, int is_all_dead);
 
 // launchers functions
 void				launch_program(t_program *program);

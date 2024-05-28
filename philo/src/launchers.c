@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:09:03 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/24 16:49:58 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/28 13:54:41 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
+static void	destroy_free_all(t_program *program)
+{
+	int	i;
+
+	i = -1;
+	while (++i < program->num_of_philos)
+	{
+		pthread_mutex_destroy(&program->philos[i].r_fork);
+		pthread_mutex_destroy(&program->philos[i].num_times_to_eat_lock);
+	}
+	free(program->philos);
+	pthread_mutex_destroy(&program->dead_lock);
+	pthread_mutex_destroy(&program->write_lock);
+	pthread_mutex_destroy(&program->last_meal_lock);
+}
+
 void	launch_program(t_program *program)
 {
 	int	i;
@@ -41,20 +57,9 @@ void	launch_program(t_program *program)
 			break ;
 	if (program->philos[0].num_times_to_eat == -1)
 		is_all_dead = 1;
-	while (!is_all_dead)
-	{
-		i = -1;
-		while (++i < program->num_of_philos)
-		{
-			pthread_mutex_lock(&program->philos[i].num_times_to_eat_lock);
-			if (program->philos[i].num_times_to_eat != 0)
-				is_all_dead = 0;
-			pthread_mutex_unlock(&program->philos[i].num_times_to_eat_lock);
-		}
-		usleep(500);
-	}
+	check_is_all_dead(program, is_all_dead);
 	i = -1;
 	while (++i < program->num_of_philos)
 		pthread_join(program->philos[i].thread, NULL);
-	free(program->philos);
+	destroy_free_all(program);
 }
