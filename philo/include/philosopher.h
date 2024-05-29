@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 14:48:38 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/28 22:55:24 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
 int					ft_atoi(const char *str);
 long				gettimeofday_ms(void);
+void				destroy_free_all(t_program *program);
 
 // check_user_input functions
 int					check_user_input(t_program *program, char **argv);

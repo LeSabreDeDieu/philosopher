@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 15:04:28 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/28 22:55:40 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ int	init_t_program(t_program *program, char **argv)
 	}
 	program->start_time = gettimeofday_ms();
 	init_philos(program, nb_time_eat);
-	return (launch_philos(program));
+	if (launch_philos(program))
+		return (destroy_free_all(program), 1);
+	return (0);
 }

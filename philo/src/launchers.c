@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:09:03 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 13:54:41 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/28 23:02:21 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-static void	destroy_free_all(t_program *program)
+void	destroy_free_all(t_program *program)
 {
 	int	i;
 
