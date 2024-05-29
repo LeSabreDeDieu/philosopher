@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 22:55:24 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/29 03:46:42 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int					check_user_input(t_program *program, char **argv);
 // secured functions
 void				secured_write(t_philo *philo, char *str, char *color);
 int					get_dead_flag_secured(t_philo *philo);
+int					get_time_to_eat_secured(t_philo *philo);
 
 // init functions
 int					init_t_program(t_program *program, char **argv);

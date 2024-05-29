@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/05/28 14:46:33 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/05/29 03:47:41 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_UTILS_FILES	=	check_user_input.c \
 					ft_calloc.c	\
 					gettimeofday_ms.c \
 					main_thread_utils.c \
-					secured_get_dead_flag.c \
+					secured_get_data.c \
 					secured_write.c \
 					take_forks.c
 SRC_UTILS		=	$(addprefix $(SRC_UTILS_DIR)/, $(SRC_UTILS_FILES))				
