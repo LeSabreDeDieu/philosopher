@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:38:01 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/31 12:48:51 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:02:27 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	check_death(t_program *program)
 
 	i = -1;
 	gtod = 0;
-	while (++i < program->num_of_philos)
+	while (++i < program->num_of_philos
+		&& get_nb_time_to_eat_secured(&program->philos[i]) == -1)
 	{
-		if (get_dead_flag_secured(&program->philos[i]) == 1
-			&& get_nb_time_to_eat_secured(&program->philos[i]) == -1)
+		if (get_dead_flag_secured(&program->philos[i]) == 1)
 			return (set_all_philos_died(program));
 		gtod = gettimeofday_ms();
 		if (gtod - get_last_meal_secured(&program->philos[i])
