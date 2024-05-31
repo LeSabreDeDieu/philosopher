@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/29 06:40:25 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:11:48 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_program
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	last_meal_lock;
+	pthread_t		cheak_nb_eat;
 	long			start_time;
 	long			time_to_die;
 	long			time_to_eat;
