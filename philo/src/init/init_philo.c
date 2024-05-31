@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/31 12:12:45 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:44:06 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	init_t_program(t_program *program, char **argv)
 			return (printf("est soit < 1 ou depasse le int max\n"), 1);
 		}
 	}
-	pthread_create(program->cheak_nb_eat, NULL, &cheak_nb_death, program);
+	pthread_create(&program->check_nb_eat, NULL, &check_nb_eat, program);
 	program->start_time = gettimeofday_ms();
 	init_philos(program, nb_time_eat);
 	if (launch_philos(program))

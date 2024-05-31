@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:09:03 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/29 06:46:27 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:44:25 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,12 @@ void	destroy_free_all(t_program *program)
 void	launch_program(t_program *program)
 {
 	int	i;
-	int	is_all_dead;
 
-	is_all_dead = 0;
 	while (1)
 		if (check_death(program))
 			break ;
-	if (get_nb_time_to_eat_secured(&program->philos[0]) == -1)
-		is_all_dead = 1;
-	check_is_all_dead(program, is_all_dead);
 	i = -1;
 	while (++i < program->num_of_philos)
 		pthread_join(program->philos[i].thread, NULL);
 	destroy_free_all(program);
-	
 }
