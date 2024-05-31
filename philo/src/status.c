@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:19:55 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/29 03:51:58 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/29 06:43:04 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@
 int	is_eating(t_philo *philo)
 {
 	if (get_dead_flag_secured(philo) || philo->num_times_to_eat == 0)
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(&philo->r_fork);
-		return (0);
-	}
+		return (put_fork(philo), 0);
 	pthread_mutex_lock(philo->last_meal_lock);
 	philo->last_meal = gettimeofday_ms();
 	pthread_mutex_unlock(philo->last_meal_lock);
@@ -33,9 +29,7 @@ int	is_eating(t_philo *philo)
 		philo->num_times_to_eat--;
 		pthread_mutex_unlock(&philo->num_times_to_eat_lock);
 	}
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(&philo->r_fork);
-	return (1);
+	return (put_fork(philo), 1);
 }
 
 int	is_sleeping(t_philo *philo)

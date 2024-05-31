@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:13:32 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 13:30:56 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/05/29 06:39:11 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ int	take_forks(t_philo *philo)
 			return (pthread_mutex_unlock(&philo->r_fork), 0);
 	}
 	return (1);
+}
+
+void	put_fork(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(&philo->r_fork);
+	}
 }
