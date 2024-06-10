@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_user_input.c                                 :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:30:38 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 10:36:24 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:58:37 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ int	check_user_input(t_program *program, char **argv)
 	if (check_user_input_2(program, argv) == 1)
 		return (1);
 	return (0);
+}
+
+void	init_mutex(t_program *program)
+{
+	pthread_mutex_init(&program->write_lock, NULL);
+	pthread_mutex_init(&program->last_meal_lock, NULL);
+	pthread_mutex_init(&program->dead_lock, NULL);
+	pthread_mutex_init(&program->num_to_eat_lock, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:02:05 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:12:22 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void				*ft_calloc(size_t count, size_t size);
 int					ft_atoi(const char *str);
 long				gettimeofday_ms(void);
 void				destroy_free_all(t_program *program);
+void				init_mutex(t_program *program);
 
 // check_user_input functions
 int					check_user_input(t_program *program, char **argv);
@@ -76,7 +77,6 @@ int					check_user_input(t_program *program, char **argv);
 void				secured_write(t_philo *philo, char *str, char *color);
 int					get_dead_flag_secured(t_philo *philo);
 int					get_nb_time_to_eat_secured(t_philo *philo);
-long				get_time_to_eat_secured(t_philo *philo);
 long				get_last_meal_secured(t_philo *philo);
 
 // init functions
@@ -91,7 +91,6 @@ void				put_fork(t_philo *philo);
 
 // check_death functions
 int					check_death(t_program *program);
-void				*check_nb_eat(void *arg);
 void				check_is_all_dead(t_program *program);
 
 // launchers functions

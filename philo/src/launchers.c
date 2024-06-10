@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:09:03 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:09:49 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:16:54 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ void	destroy_free_all(t_program *program)
 
 	i = -1;
 	while (++i < program->num_of_philos)
-	{
 		pthread_mutex_destroy(&program->philos[i].r_fork);
-	}
 	free(program->philos);
-	pthread_mutex_destroy(&program->dead_lock);
-	pthread_mutex_destroy(&program->write_lock);
-	pthread_mutex_destroy(&program->last_meal_lock);
 	pthread_mutex_destroy(&program->num_to_eat_lock);
+	pthread_mutex_destroy(&program->dead_lock);
+	pthread_mutex_destroy(&program->last_meal_lock);
+	pthread_mutex_destroy(&program->write_lock);
 }
 
 void	launch_program(t_program *program)

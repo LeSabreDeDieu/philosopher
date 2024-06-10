@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/06/10 11:55:36 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/06/10 12:59:44 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_INIT		=	$(addprefix $(SRC_INIT_DIR)/, $(SRC_INIT_FILES))
 
 # UTILS
 SRC_UTILS_DIR	=	$(SRCDIR)/utils
-SRC_UTILS_FILES	=	check_user_input.c \
+SRC_UTILS_FILES	=	utils.c \
 					ft_atoi.c \
 					ft_bzero.c \
 					ft_calloc.c	\

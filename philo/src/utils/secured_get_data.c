@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:17 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:08:35 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:52:15 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ int	get_dead_flag_secured(t_philo *philo)
 	dead_flag = philo->dead_flag;
 	pthread_mutex_unlock(philo->dead_lock);
 	return (dead_flag);
-}
-
-long	get_time_to_eat_secured(t_philo *philo)
-{
-	long	time_to_eat;
-
-	pthread_mutex_lock(philo->write_lock);
-	time_to_eat = philo->time_to_eat;
-	pthread_mutex_unlock(philo->write_lock);
-	return (time_to_eat);
 }
 
 int	get_nb_time_to_eat_secured(t_philo *philo)

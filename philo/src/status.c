@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:19:55 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:11:00 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:52:00 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_eating(t_philo *philo)
 	pthread_mutex_unlock(philo->last_meal_lock);
 	secured_write(philo, "is eating", EAT_COLOR);
 	usleep(philo->time_to_eat * 1000);
-	if (get_time_to_eat_secured(philo) > 0)
+	if (get_nb_time_to_eat_secured(philo) > 0)
 	{
 		pthread_mutex_lock(philo->num_to_eat_lock);
 		philo->num_to_eat--;
@@ -51,18 +51,14 @@ int	is_thinking(t_philo *philo)
 	think_time = 0;
 	if (get_dead_flag_secured(philo) || philo->num_to_eat == 0)
 		return (0);
-	secured_write(philo, "is thinking", THINK_COLOR);
-	if (philo->time_to_eat > philo->time_to_sleep)
-		think_time = philo->time_to_eat - philo->time_to_sleep;
-	else if (philo->time_to_eat < philo->time_to_sleep)
-		think_time = philo->time_to_sleep - philo->time_to_eat;
-	else if (philo->time_to_eat == philo->time_to_sleep)
-		think_time = philo->time_to_eat / 2;
 	if (philo->num_of_philos % 2 != 0
-		&& (philo->time_to_eat / 2) - think_time > 0)
-		usleep(((philo->time_to_eat / 2) - think_time) * 1000);
-	else
+		&& philo->time_to_eat > philo->time_to_sleep)
+		think_time = philo->time_to_eat - philo->time_to_sleep;
+	if (philo->id % 2 != 0)
+		usleep(((philo->time_to_eat / 2) + think_time) * 1000);
+	if (think_time != 0)
 		usleep(think_time * 1000);
+	secured_write(philo, "is thinking", THINK_COLOR);
 	if (!take_forks(philo))
 		return (0);
 	return (1);

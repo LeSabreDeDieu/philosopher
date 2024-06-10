@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:01:52 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:18:26 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	launch_philos(t_program *program)
 		usleep(program->time_to_die * 1000);
 		printf("%s%ld %d %s%s\n", DEAD_COLOR, (gettimeofday_ms()
 				- program->start_time), 1, "died", RESET_COLOR);
-		return (1);
+		return (destroy_free_all(program), 1);
 	}
 	lunch_routine(program);
 	return (0);
@@ -81,10 +81,7 @@ int	init_t_program(t_program *program, char **argv)
 	nb_time_eat = -1;
 	if (check_user_input(program, argv))
 		return (1);
-	pthread_mutex_init(&program->dead_lock, NULL);
-	pthread_mutex_init(&program->write_lock, NULL);
-	pthread_mutex_init(&program->last_meal_lock, NULL);
-	pthread_mutex_init(&program->num_to_eat_lock, NULL);
+	init_mutex(program);
 	program->philos = ft_calloc(program->num_of_philos, sizeof(t_philo));
 	if (argv[5])
 	{
@@ -94,11 +91,10 @@ int	init_t_program(t_program *program, char **argv)
 			printf("Error : \"le nombre de fois que chaque philo doit manger\" ");
 			return (printf("est soit < 1 ou depasse le int max\n"), 1);
 		}
-		pthread_create(&program->check_nb_eat, NULL, &check_nb_eat, program);
 	}
 	program->start_time = gettimeofday_ms();
 	init_philos(program, nb_time_eat);
-	if (launch_philos(program))
-		return (destroy_free_all(program), 1);
-	return (0);
+	if (!launch_philos(program))
+		return (0);
+	return (1);
 }
