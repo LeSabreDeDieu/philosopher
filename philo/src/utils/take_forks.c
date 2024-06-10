@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:13:32 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/29 06:39:11 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/07 10:54:37 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ int	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		if (!get_dead_flag_secured(philo) && philo->num_times_to_eat != 0)
+		if (!get_dead_flag_secured(philo) && philo->num_to_eat != 0)
 			take_forks_left(philo);
 		else
 			return (0);
-		if (!get_dead_flag_secured(philo) && philo->num_times_to_eat != 0)
+		if (!get_dead_flag_secured(philo) && philo->num_to_eat != 0)
 			take_forks_right(philo);
 		else
 			return (pthread_mutex_unlock(philo->l_fork), 0);
 	}
 	else
 	{
-		if (!get_dead_flag_secured(philo) && philo->num_times_to_eat != 0)
+		if (!get_dead_flag_secured(philo) && philo->num_to_eat != 0)
 			take_forks_right(philo);
 		else
 			return (0);
-		if (!get_dead_flag_secured(philo) && philo->num_times_to_eat != 0)
+		if (!get_dead_flag_secured(philo) && philo->num_to_eat != 0)
 			take_forks_left(philo);
 		else
 			return (pthread_mutex_unlock(&philo->r_fork), 0);

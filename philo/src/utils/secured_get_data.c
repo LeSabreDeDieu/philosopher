@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:17 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/29 05:32:16 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:08:35 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_dead_flag_secured(t_philo *philo)
 	return (dead_flag);
 }
 
-long get_time_to_eat_secured(t_philo *philo)
+long	get_time_to_eat_secured(t_philo *philo)
 {
 	long	time_to_eat;
 
@@ -32,13 +32,13 @@ long get_time_to_eat_secured(t_philo *philo)
 	return (time_to_eat);
 }
 
-int get_nb_time_to_eat_secured(t_philo *philo)
+int	get_nb_time_to_eat_secured(t_philo *philo)
 {
 	int	nb_time_eat;
 
-	pthread_mutex_lock(&philo->num_times_to_eat_lock);
-	nb_time_eat = philo->num_times_to_eat;
-	pthread_mutex_unlock(&philo->num_times_to_eat_lock);
+	pthread_mutex_lock(philo->num_to_eat_lock);
+	nb_time_eat = philo->num_to_eat;
+	pthread_mutex_unlock(philo->num_to_eat_lock);
 	return (nb_time_eat);
 }
 

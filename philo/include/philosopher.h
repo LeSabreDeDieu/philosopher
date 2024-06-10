@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/31 12:47:30 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:02:05 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,22 @@
 
 typedef struct s_philo
 {
-	pthread_mutex_t	num_times_to_eat_lock;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*num_to_eat_lock;
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*last_meal_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_t		thread;
-	int				dead_flag;
 	long			start_time;
+	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			last_meal;
+	int				num_of_philos;
+	int				dead_flag;
 	int				id;
-	int				num_times_to_eat;
+	int				num_to_eat;
 }					t_philo;
 
 typedef struct s_program
@@ -51,6 +53,7 @@ typedef struct s_program
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	last_meal_lock;
+	pthread_mutex_t	num_to_eat_lock;
 	pthread_t		check_nb_eat;
 	long			start_time;
 	long			time_to_die;
@@ -72,10 +75,9 @@ int					check_user_input(t_program *program, char **argv);
 // secured functions
 void				secured_write(t_philo *philo, char *str, char *color);
 int					get_dead_flag_secured(t_philo *philo);
-int 				get_nb_time_to_eat_secured(t_philo *philo);
+int					get_nb_time_to_eat_secured(t_philo *philo);
 long				get_time_to_eat_secured(t_philo *philo);
 long				get_last_meal_secured(t_philo *philo);
-
 
 // init functions
 int					init_t_program(t_program *program, char **argv);

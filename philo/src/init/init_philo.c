@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/04 12:29:15 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 12:01:52 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	lunch_routine(t_program *program)
 static void	init_philo(t_philo *philo)
 {
 	pthread_mutex_init(&philo->r_fork, NULL);
-	pthread_mutex_init(&philo->num_times_to_eat_lock, NULL);
 	philo->last_meal = philo->start_time;
 	philo->dead_flag = 0;
 }
@@ -38,8 +37,10 @@ static void	init_philos(t_program *program, int nb_time_eat)
 	i = 0;
 	while (i < program->num_of_philos)
 	{
+		program->philos[i].num_of_philos = program->num_of_philos;
 		program->philos[i].id = i + 1;
 		program->philos[i].start_time = program->start_time;
+		program->philos[i].time_to_die = program->time_to_die;
 		if (i != 0)
 			program->philos[i].l_fork = &program->philos[i - 1].r_fork;
 		program->philos[i].time_to_eat = program->time_to_eat;
@@ -47,8 +48,9 @@ static void	init_philos(t_program *program, int nb_time_eat)
 		program->philos[i].write_lock = &program->write_lock;
 		program->philos[i].last_meal_lock = &program->last_meal_lock;
 		program->philos[i].dead_lock = &program->dead_lock;
+		program->philos[i].num_to_eat_lock = &program->num_to_eat_lock;
 		init_philo(&program->philos[i]);
-		program->philos[i].num_times_to_eat = nb_time_eat;
+		program->philos[i].num_to_eat = nb_time_eat;
 		i++;
 	}
 	program->philos[0].l_fork = &program->philos[program->num_of_philos
@@ -82,6 +84,7 @@ int	init_t_program(t_program *program, char **argv)
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->last_meal_lock, NULL);
+	pthread_mutex_init(&program->num_to_eat_lock, NULL);
 	program->philos = ft_calloc(program->num_of_philos, sizeof(t_philo));
 	if (argv[5])
 	{
@@ -91,8 +94,8 @@ int	init_t_program(t_program *program, char **argv)
 			printf("Error : \"le nombre de fois que chaque philo doit manger\" ");
 			return (printf("est soit < 1 ou depasse le int max\n"), 1);
 		}
+		pthread_create(&program->check_nb_eat, NULL, &check_nb_eat, program);
 	}
-	pthread_create(&program->check_nb_eat, NULL, &check_nb_eat, program);
 	program->start_time = gettimeofday_ms();
 	init_philos(program, nb_time_eat);
 	if (launch_philos(program))

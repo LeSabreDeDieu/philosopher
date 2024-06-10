@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:30:38 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/28 14:48:34 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/10 10:36:24 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_user_input(t_program *program, char **argv)
 		return (printf("le \"time to die\" est soit < 1 ou depasse le int max\n"),
 			1);
 	}
-	check_user_input_2(program, argv);
+	if (check_user_input_2(program, argv) == 1)
+		return (1);
 	return (0);
 }
