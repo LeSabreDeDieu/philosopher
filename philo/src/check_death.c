@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:38:01 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 13:12:06 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:23:20 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int	check_death(t_program *program)
 			pthread_mutex_lock(&program->write_lock);
 			num_eat = get_nb_time_to_eat_secured(&program->philos[i]);
 			if (num_eat < 0 || num_eat > 0)
-				printf("%s%ld %d %s%s\n", DEAD_COLOR, (gtod
-						- program->start_time), program->philos[i].id, "died",
-					RESET_COLOR);
+				printf("%s%ld %d %s%s\n", DEAD_C, (gtod - program->start_time),
+					program->philos[i].id, "died", R);
 			pthread_mutex_unlock(&program->write_lock);
 			pthread_mutex_unlock(&program->dead_lock);
 			return (set_all_philos_died(program));

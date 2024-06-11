@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 13:12:22 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:23:29 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include <unistd.h>
 
 // colors
-# define DEAD_COLOR "\033[0;31m"
+# define DEAD_C "\033[0;31m"
 # define SLEEP_COLOR "\033[0;32m"
 # define FORK_COLOR "\033[0;35m"
 # define EAT_COLOR "\033[0;36m"
 # define THINK_COLOR "\033[0;33m"
-# define RESET_COLOR "\033[0m"
+# define R "\033[0m"
 
 typedef struct s_philo
 {

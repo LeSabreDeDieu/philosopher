@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 13:18:26 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:24:15 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ static int	launch_philos(t_program *program)
 	if (program->num_of_philos == 1)
 	{
 		printf("%s%ld %d %s%s\n", THINK_COLOR, (gettimeofday_ms()
-				- program->start_time), 1, "is thinking", RESET_COLOR);
+				- program->start_time), 1, "is thinking", R);
 		printf("%s%ld %d %s%s\n", FORK_COLOR, (gettimeofday_ms()
-				- program->start_time), 1, "has taken a fork", RESET_COLOR);
+				- program->start_time), 1, "has taken a fork", R);
 		usleep(program->time_to_die * 1000);
-		printf("%s%ld %d %s%s\n", DEAD_COLOR, (gettimeofday_ms()
-				- program->start_time), 1, "died", RESET_COLOR);
+		printf("%s%ld %d %s%s\n", DEAD_C, (gettimeofday_ms()
+				- program->start_time), 1, "died", R);
 		return (destroy_free_all(program), 1);
 	}
 	lunch_routine(program);
@@ -83,6 +83,8 @@ int	init_t_program(t_program *program, char **argv)
 		return (1);
 	init_mutex(program);
 	program->philos = ft_calloc(program->num_of_philos, sizeof(t_philo));
+	if (!program->philos)
+		return (printf("Error : malloc failed\n"), 1);
 	if (argv[5])
 	{
 		nb_time_eat = ft_atoi(argv[5]);
