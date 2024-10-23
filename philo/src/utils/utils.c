@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:30:38 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 12:58:37 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:16:28 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	check_user_input_2(t_program *program, char **argv)
 {
-	program->time_to_sleep = ft_atoi(argv[4]);
+	program->time_to_sleep = ft_atol(argv[4]);
 	if (program->time_to_sleep < 1 || ((long)program->num_of_philos) > INT_MAX)
 	{
 		printf("Error : le \"time to sleep\" ");
@@ -26,20 +26,20 @@ static int	check_user_input_2(t_program *program, char **argv)
 
 int	check_user_input(t_program *program, char **argv)
 {
-	program->num_of_philos = ft_atoi(argv[1]);
+	program->num_of_philos = (int)ft_atol(argv[1]);
 	if (program->num_of_philos < 1 || ((long)program->num_of_philos) > INT_MAX)
 	{
 		printf("Error : le nombre de philo ");
 		return (printf("est soit < 1 ou depasse le int max\n"), 1);
 	}
-	program->time_to_eat = ft_atoi(argv[3]);
+	program->time_to_eat = ft_atol(argv[3]);
 	if (program->time_to_eat < 1 || ((long)program->num_of_philos) > INT_MAX)
 	{
 		printf("Error : ");
 		return (printf("le \"time to eat\" est soit < 1 ou depasse le int max\n"),
 			1);
 	}
-	program->time_to_die = ft_atoi(argv[2]);
+	program->time_to_die = ft_atol(argv[2]);
 	if (program->time_to_die < 1 || ((long)program->num_of_philos) > INT_MAX)
 	{
 		printf("Error : ");

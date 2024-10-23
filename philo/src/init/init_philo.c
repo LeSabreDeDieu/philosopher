@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/11 11:24:15 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:07:04 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	launch_philos(t_program *program)
 				- program->start_time), 1, "is thinking", R);
 		printf("%s%ld %d %s%s\n", FORK_COLOR, (gettimeofday_ms()
 				- program->start_time), 1, "has taken a fork", R);
-		usleep(program->time_to_die * 1000);
+		ft_usleep(program->time_to_die, &program->philos[0]);
 		printf("%s%ld %d %s%s\n", DEAD_C, (gettimeofday_ms()
 				- program->start_time), 1, "died", R);
 		return (destroy_free_all(program), 1);
@@ -87,7 +87,7 @@ int	init_t_program(t_program *program, char **argv)
 		return (printf("Error : malloc failed\n"), 1);
 	if (argv[5])
 	{
-		nb_time_eat = ft_atoi(argv[5]);
+		nb_time_eat = ft_atol(argv[5]);
 		if (nb_time_eat < 1 || ((long)program->num_of_philos) > INT_MAX)
 		{
 			printf("Error : \"le nombre de fois que chaque philo doit manger\" ");

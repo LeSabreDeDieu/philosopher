@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:39:58 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:33 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/06/11 15:15:45 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static int	ft_is_space(char c)
 		|| c == '\v');
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	neg;
-	int	num;
-	int	i;
+	int		neg;
+	long	num;
+	int		i;
 
 	neg = 1;
 	num = 0;

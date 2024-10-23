@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:19:55 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/11 11:22:55 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/07/02 17:20:12 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	is_eating(t_philo *philo)
 	philo->last_meal = gettimeofday_ms();
 	pthread_mutex_unlock(philo->last_meal_lock);
 	secured_write(philo, "is eating", EAT_COLOR);
-	usleep(philo->time_to_eat * 1000);
+	if (ft_usleep(philo->time_to_eat, philo))
+		return (put_fork(philo), 0);
 	if (get_nb_time_to_eat_secured(philo) > 0)
 	{
 		pthread_mutex_lock(philo->num_to_eat_lock);
@@ -40,7 +41,8 @@ int	is_sleeping(t_philo *philo)
 	if (get_dead_flag_secured(philo) || philo->num_to_eat == 0)
 		return (0);
 	secured_write(philo, "is sleeping", SLEEP_COLOR);
-	usleep(philo->time_to_sleep * 1000);
+	if (ft_usleep(philo->time_to_sleep, philo))
+		return (0);
 	return (1);
 }
 
@@ -51,17 +53,20 @@ int	is_thinking(t_philo *philo)
 	think_time = 0;
 	if (get_dead_flag_secured(philo) || philo->num_to_eat == 0)
 		return (0);
-	if (philo->num_of_philos % 4 != 0)
+	secured_write(philo, "is thinking", THINK_COLOR);
+	if (philo->num_of_philos % 2 != 0)
 	{
 		if (philo->num_of_philos % 2 != 0
 			&& philo->time_to_eat > philo->time_to_sleep)
 			think_time = philo->time_to_eat - philo->time_to_sleep;
 		if (philo->id % 2 != 0)
-			usleep(((philo->time_to_eat / 2) + think_time) * 1000);
-		if (think_time != 0)
-			usleep(think_time * 1000);
+		{
+			if (ft_usleep(((philo->time_to_eat / 2) + think_time), philo))
+				return (0);
+		}
+		else
+			ft_usleep(think_time, philo);
 	}
-	secured_write(philo, "is thinking", THINK_COLOR);
 	if (!take_forks(philo))
 		return (0);
 	return (1);

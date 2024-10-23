@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/11 11:23:29 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/07/05 12:36:54 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_program
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	last_meal_lock;
 	pthread_mutex_t	num_to_eat_lock;
-	pthread_t		check_nb_eat;
 	long			start_time;
 	long			time_to_die;
 	long			time_to_eat;
@@ -65,10 +64,11 @@ typedef struct s_program
 //	utils functions
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
-int					ft_atoi(const char *str);
+long				ft_atol(const char *str);
 long				gettimeofday_ms(void);
 void				destroy_free_all(t_program *program);
 void				init_mutex(t_program *program);
+int					ft_usleep(long time_in_ms, t_philo *philo);
 
 // check_user_input functions
 int					check_user_input(t_program *program, char **argv);
