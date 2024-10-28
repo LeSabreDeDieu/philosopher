@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:30:38 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/11 15:16:28 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:18:44 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void	init_mutex(t_program *program)
 	pthread_mutex_init(&program->last_meal_lock, NULL);
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->num_to_eat_lock, NULL);
+	pthread_mutex_init(&program->finish_eating_lock, NULL);
 }

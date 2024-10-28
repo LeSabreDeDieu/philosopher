@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:38:01 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/07/04 15:40:40 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:27:51 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ static int	set_all_philos_died(t_program *program)
 			pthread_mutex_unlock(program->philos[i].dead_lock);
 		}
 	}
+	return (1);
+}
+
+int	check_all_philos_eating(t_program *program)
+{
+	int		i;
+	int		finish_eating;
+
+	i = -1;
+	finish_eating = 0;
+	while (++i < program->num_of_philos)
+	{
+		if (get_is_finish_eating_secured(&program->philos[i]))
+			finish_eating++;
+	}
+	if (finish_eating != program->num_of_philos)
+		return (0);
 	return (1);
 }
 

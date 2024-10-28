@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:06 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/07/05 12:36:54 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:27:44 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 // colors
 # define DEAD_C "\033[0;31m"
@@ -35,16 +36,19 @@ typedef struct s_philo
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*last_meal_lock;
 	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*finish_eating_lock;
 	pthread_t		thread;
 	long			start_time;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			last_meal;
-	int				num_of_philos;
 	int				dead_flag;
 	int				id;
 	int				num_to_eat;
+	bool			first_time_thinking;
+	bool			is_finish_eating;
+	unsigned char	num_of_philos;
 }					t_philo;
 
 typedef struct s_program
@@ -54,6 +58,7 @@ typedef struct s_program
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	last_meal_lock;
 	pthread_mutex_t	num_to_eat_lock;
+	pthread_mutex_t	finish_eating_lock;
 	long			start_time;
 	long			time_to_die;
 	long			time_to_eat;
@@ -78,6 +83,7 @@ void				secured_write(t_philo *philo, char *str, char *color);
 int					get_dead_flag_secured(t_philo *philo);
 int					get_nb_time_to_eat_secured(t_philo *philo);
 long				get_last_meal_secured(t_philo *philo);
+bool				get_is_finish_eating_secured(t_philo *philo);
 
 // init functions
 int					init_t_program(t_program *program, char **argv);
@@ -92,6 +98,7 @@ void				put_fork(t_philo *philo);
 // check_death functions
 int					check_death(t_program *program);
 void				check_is_all_dead(t_program *program);
+int					check_all_philos_eating(t_program *program);
 
 // launchers functions
 void				launch_program(t_program *program);

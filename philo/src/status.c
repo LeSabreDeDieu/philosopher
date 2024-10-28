@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:19:55 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/07/02 17:20:12 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:33:44 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ int	is_eating(t_philo *philo)
 		pthread_mutex_lock(philo->num_to_eat_lock);
 		philo->num_to_eat--;
 		if (philo->num_to_eat == 0)
+		{
+			pthread_mutex_lock(philo->finish_eating_lock);
+			philo->is_finish_eating = true;
+			pthread_mutex_unlock(philo->finish_eating_lock);
 			return (pthread_mutex_unlock(philo->num_to_eat_lock),
 				put_fork(philo), 0);
+		}
 		pthread_mutex_unlock(philo->num_to_eat_lock);
 	}
 	return (put_fork(philo), 1);

@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:42:17 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/07/04 15:49:59 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:23:53 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ long	get_last_meal_secured(t_philo *philo)
 	last_meal = philo->last_meal;
 	pthread_mutex_unlock(philo->last_meal_lock);
 	return (last_meal);
+}
+
+bool	get_is_finish_eating_secured(t_philo *philo)
+{
+	bool	is_finish_eating;
+
+	pthread_mutex_lock(philo->finish_eating_lock);
+	is_finish_eating = philo->is_finish_eating;
+	pthread_mutex_unlock(philo->finish_eating_lock);
+	return (is_finish_eating);
 }

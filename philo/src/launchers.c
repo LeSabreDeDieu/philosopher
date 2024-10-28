@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:09:03 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/06/10 13:16:54 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:28:06 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	launch_program(t_program *program)
 	int	i;
 
 	while (1)
-		if (check_death(program))
+		if (check_death(program) || check_all_philos_eating(program))
 			break ;
 	i = -1;
 	while (++i < program->num_of_philos)

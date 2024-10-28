@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2024/07/02 16:53:41 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/10/28 10:28:23 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ NAME		=	philo
 
 # Compiler
 CC			=	clang
-CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 #-fsanitize=thread
+CFLAGS		=	-Wall -Werror -Wextra -MMD -g3 -fsanitize=thread
 OPTIONS		=	-I $(INCDIR) -I $(LIBFT_DIR)/includes
 LFLAGS		=	-L $(LIBFT_DIR) -lft
 

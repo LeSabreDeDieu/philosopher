@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:01:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/07/02 16:07:04 by sgabsi           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:18:28 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	init_philos(t_program *program, int nb_time_eat)
 {
 	int	i;
 
-	i = 0;
-	while (i < program->num_of_philos)
+	i = -1;
+	while (++i < program->num_of_philos)
 	{
 		program->philos[i].num_of_philos = program->num_of_philos;
 		program->philos[i].id = i + 1;
@@ -49,9 +49,11 @@ static void	init_philos(t_program *program, int nb_time_eat)
 		program->philos[i].last_meal_lock = &program->last_meal_lock;
 		program->philos[i].dead_lock = &program->dead_lock;
 		program->philos[i].num_to_eat_lock = &program->num_to_eat_lock;
+		program->philos[i].finish_eating_lock = &program->finish_eating_lock;
+		program->philos[i].first_time_thinking = true;
+		program->philos[i].is_finish_eating = false;
 		init_philo(&program->philos[i]);
 		program->philos[i].num_to_eat = nb_time_eat;
-		i++;
 	}
 	program->philos[0].l_fork = &program->philos[program->num_of_philos
 		- 1].r_fork;
