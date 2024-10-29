@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.c                                      :+:      :+:    :+:   */
+/*   ft_trylock.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 15:05:24 by sgabsi            #+#    #+#             */
-/*   Updated: 2024/10/28 14:04:41 by sgabsi           ###   ########.fr       */
+/*   Created: 2024/10/28 12:10:46 by sgabsi            #+#    #+#             */
+/*   Updated: 2024/10/28 12:21:58 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	usage(void)
+int	ft_pthread_mutex_trylock(pthread_mutex_t *mutex)
 {
-	printf("Usage: ./philo number_of_philosophers time_to_die time_to_eat ");
-	printf("time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
-}
+	int	result;
 
-int	main(int argc, char **argv)
-{
-	t_program	program;
-
-	if (!(argc == 5 || argc == 6))
-		return (usage(), 1);
-	ft_bzero(&program, sizeof(t_program));
-	if (init_t_program(&program, argv))
-		return (1);
-	launch_program(&program);
-	return (0);
+	result = pthread_mutex_lock(mutex);
+	if (result != 0)
+		printf("Error : Unexpected error when try to lock mutex");
+	return (result);
 }
