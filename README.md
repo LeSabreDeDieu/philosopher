@@ -45,4 +45,4 @@ Example :
 ```
 
 ## Problem Description
-In the Dining Philosophers problem, n philosophers sit at a table with n forks. Each philosopher must alternately think, eat and sleep. However, a philosopher can only eat when they have both the left and right forks. The challenge is to design a protocol that ensures no philosopher starves and that the program avoids deadlock and livelock situations.
+In the Dining Philosophers problem, `n` philosophers sit at a table with `n` forks. Each philosopher must alternately think, eat and sleep. However, a philosopher can only eat when they have both the left and right forks. The challenge is to design a protocol that ensures no philosopher starves and that the program avoids deadlock and livelock situations.
